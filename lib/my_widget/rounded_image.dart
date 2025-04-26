@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class VRoundedImage extends StatelessWidget {
-  const VRoundedImage({
+class RoundedImage extends StatelessWidget {
+  const RoundedImage({
     super.key,
     this.width,
     this.height,

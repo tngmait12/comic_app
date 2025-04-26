@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:comic_app/my_widget/rounded_image.dart';
-import 'package:comic_app/my_widget/vertical_image_text.dart';
+import 'package:comic_app/my_widget/vertical_icon_text.dart';
 import 'package:flutter/material.dart';
-
+import 'package:comic_app/my_widget/grid_layout.dart';
 class PageHomeComic extends StatelessWidget {
-   PageHomeComic({super.key});
+   const PageHomeComic({super.key});
 
 
   @override
@@ -25,35 +25,105 @@ class PageHomeComic extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            CarouselSlider(
-                items: imageSliders,
-                options: CarouselOptions(
-                  height: 200, // Set the height of the carousel
-                  autoPlay: false, // Enable auto-play
-                  // autoPlayCurve: Curves.easeInOut, // Set the auto-play curve
-                  // autoPlayAnimationDuration: Duration(milliseconds: 500), // Set the auto-play animation duration
-                  aspectRatio: 2.0,
-                  enlargeCenterPage: true,
-                )
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 80,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, index){
-                      return VerticalImageText(image: 'https://th.bing.com/th/id/OIP.dik9TRSrNSq7nR93ZaWGvQHaHa?rs=1&pid=ImgDetMain', title: 'Category', onTap: () {});
-                    },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SizedBox(height: 16.0,),
+              CarouselSlider(
+                  items: imageSliders,
+                  options: CarouselOptions(
+                    height: 200, // Set the height of the carousel
+                    autoPlay: false, // Enable auto-play
+                    // autoPlayCurve: Curves.easeInOut, // Set the auto-play curve
+                    // autoPlayAnimationDuration: Duration(milliseconds: 500), // Set the auto-play animation duration
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                  )
+              ),
+              SizedBox(height: 16.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: 80,
+                    child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.green,)
                   ),
-                )
-              ],
-            )
-          ],
+                  SizedBox(
+                      height: 80,
+                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.red,)
+                  ),SizedBox(
+                      height: 80,
+                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.blue,)
+                  ),SizedBox(
+                      height: 80,
+                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.yellow,)
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Manga New Updated", style: TextStyle(color: Colors.white, fontSize: 24),),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right, size: 24,color: Colors.white,))
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: GridLayout(itemCount: 8, itemBuilder: (_ , index) => Container(
+                  width: 180,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Stack(
+                      children: [
+                        // Background image
+                        Image.network(
+                          "https://otruyenapi.com/uploads/comics/da-sac-ma-phap-su-thien-tai-thumb.jpg",
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                        // Bottom overlay with title + chapter
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.transparent, Colors.black87],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Đa Sắc Ma Pháp Sư Thiên Tài",
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  "Chapter 172",
+                                  style: TextStyle(color: Colors.white70, fontSize: 11),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
+              )
+            ],
+          ),
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.shadow,

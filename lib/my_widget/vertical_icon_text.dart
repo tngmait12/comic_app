@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 
-class VerticalImageText extends StatelessWidget {
-  const VerticalImageText({
+class VerticalIconText extends StatelessWidget {
+  const VerticalIconText({
     super.key,
-    required this.image,
+    required this.icon,
     required this.title,
     this.textColor = Colors.white,
     this.backgroundColor = Colors.blue,
     this.onTap,
   });
 
-  final String image, title;
+  final Icon icon;
+  final String title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
@@ -35,13 +36,14 @@ class VerticalImageText extends StatelessWidget {
               ),
               child: Center(
                 //child: Image(image: AssetImage(image), fit: BoxFit.cover, color: dark ? TColors.dark : TColors.light),
-                child: Image(image: NetworkImage(image), fit: BoxFit.cover, color: Colors.white),
+                // child: Image(image: NetworkImage(image), fit: BoxFit.cover, color: Colors.white),
+                child: icon,
               ),
             ),
 
             /// Text
             const SizedBox(height: 16.0 / 2),
-            SizedBox(width: 55, child: Text(title, style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor), maxLines: 1, overflow: TextOverflow.ellipsis))
+            SizedBox(width: 65, child: Text(title, style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor), maxLines: 1))
           ],
         ),
       ),

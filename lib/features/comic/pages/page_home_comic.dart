@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:comic_app/features/comic/pages/page_search_comic.dart';
 import 'package:comic_app/my_widget/rounded_image.dart';
 import 'package:comic_app/my_widget/vertical_icon_text.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class PageHomeComic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: VRoundedImage(imageUrl: 'https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg',width: 40,isNetworkImage: true,),
+        leading: RoundedImage(imageUrl: 'https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg',width: 40,isNetworkImage: true,),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -20,7 +21,14 @@ class PageHomeComic extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search, color: Colors.white))
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PageSearchComic(),
+                )
+              );
+            },
+            icon: Icon(Icons.search, color: Colors.white))
         ],
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),

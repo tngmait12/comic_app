@@ -4,7 +4,6 @@ import 'package:comic_app/features/comic/pages/page_new_comic.dart';
 import 'package:comic_app/features/comic/pages/page_setting_comic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});

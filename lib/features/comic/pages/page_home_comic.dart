@@ -55,14 +55,14 @@ class PageHomeComic extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 80,
-                    child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.green,)
+                    child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.green,)
                   ),
                   SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.red,)
+                      child: VerticalIconText(icon: Icon(Icons.female, color: Colors.white,), title: 'A girl',backgroundColor: Colors.red,)
                   ),SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.blue,)
+                      child: VerticalIconText(icon: Icon(Icons.male, color: Colors.white,), title: 'A boy',backgroundColor: Colors.blue,)
                   ),SizedBox(
                       height: 80,
                       child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.yellow,)
@@ -74,7 +74,7 @@ class PageHomeComic extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Manga New Updated", style: TextStyle(color: Colors.white, fontSize: 24),),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right, size: 24,color: Colors.white,))
+                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios_outlined, size: 24,color: Colors.white,))
                 ],
               ),
               Padding(

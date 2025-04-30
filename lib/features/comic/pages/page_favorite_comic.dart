@@ -7,8 +7,32 @@ class PageFavoriteComic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Favorite Comic"),
+        title: Text("Bookmark Comic",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("You need login to follow your comic", style: TextStyle(color: Colors.white, fontSize: 32), textAlign: TextAlign.center,),
+              ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightBlue,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 4,
+                  ),
+                  child: Text("Login", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
+              )
+            ],
+          ),
+        ),
       ),
       backgroundColor: Theme.of(context).colorScheme.shadow,
     );

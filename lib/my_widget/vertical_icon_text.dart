@@ -43,7 +43,7 @@ class VerticalIconText extends StatelessWidget {
 
             /// Text
             const SizedBox(height: 16.0 / 2),
-            SizedBox(width: 65, child: Text(title, style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor), maxLines: 1))
+            SizedBox(width: 65, child: Center(child: Text(title, style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor), maxLines: 1)))
           ],
         ),
       ),

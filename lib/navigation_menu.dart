@@ -14,21 +14,40 @@ class NavigationMenu extends StatelessWidget {
 
     return Scaffold(
       bottomNavigationBar: Obx(
-            () => NavigationBar(
-          height: 80,
-          elevation: 0,
-          selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) => controller.selectedIndex.value = index,
-          backgroundColor: Colors.black,
-          indicatorColor: Colors.black.withOpacity(0.1),
-
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.bookmark_add_outlined), label: 'New Update'),
-            NavigationDestination(icon: Icon(Icons.headphones), label: 'Wishlist'),
-            NavigationDestination(icon: Icon(Icons.person_off), label: 'Profile'),
-          ],
-        ),
+            () => NavigationBarTheme(
+              data: NavigationBarThemeData(
+                labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
+                      (states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      );
+                    } else {
+                      return const TextStyle(
+                        color: Colors.white70,
+                        fontWeight: FontWeight.normal,
+                      );
+                    }
+                  },
+                ),
+              ),
+              child: NavigationBar(
+                        height: 80,
+                        elevation: 0,
+                        selectedIndex: controller.selectedIndex.value,
+                        onDestinationSelected: (index) => controller.selectedIndex.value = index,
+                        backgroundColor: Colors.black,
+                        indicatorColor: Colors.white.withOpacity(0.1),
+              
+                        destinations: const [
+              NavigationDestination(icon: Icon(Icons.home, color: Colors.white,), label: 'Home'),
+              NavigationDestination(icon: Icon(Icons.bookmark_add_outlined, color: Colors.white), label: 'New Update'),
+              NavigationDestination(icon: Icon(Icons.bookmark, color: Colors.white), label: 'Bookmark'),
+              NavigationDestination(icon: Icon(Icons.account_circle, color: Colors.white), label: "Profile"),
+                        ],
+                      ),
+            ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );

@@ -7,7 +7,7 @@ class PageSettingComic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Setting User"),
+        title: Text("Setting User", style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
       backgroundColor: Theme.of(context).colorScheme.shadow,

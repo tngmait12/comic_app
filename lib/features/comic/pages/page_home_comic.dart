@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:comic_app/features/comic/models/comic_item.dart';
 import 'package:comic_app/features/comic/pages/page_category_comic.dart';
 import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
+import 'package:comic_app/features/comic/pages/page_list_category.dart';
 import 'package:comic_app/features/comic/pages/page_new_comic.dart';
 import 'package:comic_app/features/comic/pages/page_search_comic.dart';
 import 'package:comic_app/my_widget/rounded_comic_item.dart';
@@ -155,7 +156,7 @@ class PageHomeComic extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 80,
-                    child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.green,onTap: () => Get.to(PageCategoryComic()),)
+                    child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.green,onTap: () => Get.to(PageListCategory()),)
                   ),
                   SizedBox(
                       height: 80,

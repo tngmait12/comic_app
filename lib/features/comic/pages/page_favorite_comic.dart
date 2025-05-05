@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../authentication/screens/login/login.dart';
 
 class PageFavoriteComic extends StatelessWidget {
   const PageFavoriteComic({super.key});
@@ -18,7 +21,9 @@ class PageFavoriteComic extends StatelessWidget {
             children: [
               Text("You need login to follow your comic", style: TextStyle(color: Colors.white, fontSize: 32), textAlign: TextAlign.center,),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(comic_loginScreen());
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.lightBlue,
                     foregroundColor: Colors.white,

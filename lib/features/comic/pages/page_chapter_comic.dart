@@ -120,14 +120,16 @@ class _PageChapterComicState extends State<PageChapterComic> {
                     ),
 
                     //next
-                    ElevatedButton(
-                        onPressed: () {
-
-                        },
-                        style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent)
-                        ),
-                        child: Icon(Icons.keyboard_arrow_right, color: WHITE, size: SIZE_ICO,)
+                    Expanded(
+                      child: ElevatedButton(
+                          onPressed: () {
+                      
+                          },
+                          style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent)
+                          ),
+                          child: Icon(Icons.keyboard_arrow_right, color: WHITE, size: SIZE_ICO,)
+                      ),
                     ),
                   ],
                 ),

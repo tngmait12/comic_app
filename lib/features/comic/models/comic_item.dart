@@ -1,4 +1,6 @@
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'chapter_item.dart';
 
 class ComicItem {
@@ -10,7 +12,7 @@ class ComicItem {
   final String thumbUrl;
   final String updatedAt;
   final List<CategoryItem> categories;
-  final List<ChapterItem> chaptersLatest;
+  final String? latestChapter;
 
   ComicItem({
     required this.id,
@@ -21,7 +23,7 @@ class ComicItem {
     required this.thumbUrl,
     required this.updatedAt,
     required this.categories,
-    required this.chaptersLatest,
+    this.latestChapter,
   });
 
   factory ComicItem.fromJson(Map<String, dynamic> json) {
@@ -36,9 +38,9 @@ class ComicItem {
       categories: (json['category'] as List)
           .map((item) => CategoryItem.fromJson(item))
           .toList(),
-      chaptersLatest: (json['chaptersLatest'] as List)
-          .map((item) => ChapterItem.fromJson(item))
-          .toList(),
+      latestChapter: (json['chaptersLatest'] != null && json['chaptersLatest'].isNotEmpty)
+          ? json['chaptersLatest'][0]['chapter_name']
+          : null,
     );
   }
 }
@@ -60,5 +62,16 @@ class CategoryItem {
       name: json['name'],
       slug: json['slug'],
     );
+  }
+}
+
+Future<List<ComicItem>> fetchComicHomeData() async {
+  final response = await http.get(Uri.parse('https://otruyenapi.com/v1/api/home'));
+  if (response.statusCode == 200) {
+    final jsonData = json.decode(response.body);
+    final items = jsonData['data']['items'] as List;
+    return items.map((item) => ComicItem.fromJson(item)).toList();
+  } else {
+    throw Exception('Failed to load data');
   }
 }

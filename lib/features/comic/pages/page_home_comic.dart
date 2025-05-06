@@ -6,7 +6,6 @@ import 'package:comic_app/features/comic/pages/page_list_category.dart';
 import 'package:comic_app/features/comic/pages/page_new_comic.dart';
 import 'package:comic_app/features/comic/pages/page_search_comic.dart';
 import 'package:comic_app/my_widget/rounded_comic_item.dart';
-import 'package:comic_app/my_widget/rounded_image.dart';
 import 'package:comic_app/my_widget/vertical_icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:comic_app/my_widget/grid_layout.dart';
@@ -201,7 +200,7 @@ class PageHomeComic extends StatelessWidget {
                         itemCount: comics.length,
                         itemBuilder: (context, index) {
                           final comic = comics[index];
-                          return RoundedComicItem(onTap: () => Get.to(PageDetailComic(id: 1)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                          return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
                         },
                     );
                   },

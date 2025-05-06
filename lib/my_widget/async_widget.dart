@@ -11,6 +11,7 @@ class AsyncWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(snapshot.hasError){
+      print(snapshot.error);
       return error==null ? Center(child: const Text("Super Loi!!!", style: TextStyle(color: Colors.red),)) : error!();
     }
 

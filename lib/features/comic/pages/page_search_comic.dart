@@ -75,7 +75,7 @@ class _PageSearchComicState extends State<PageSearchComic> {
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => PageDetailComic(id: 1),)
+                        MaterialPageRoute(builder: (context) => PageDetailComic(slug: "",),)
                     );
                   },
                   child: Row(

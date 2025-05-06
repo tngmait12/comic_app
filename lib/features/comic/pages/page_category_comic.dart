@@ -14,9 +14,6 @@ class PageCategoryComic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> categories = ["Truyen moi", "Truyen hay", "Dang phat hanh","Top Thang","Top Luot xem"];
-    String selectedCategory = "Truyen moi";
-
     final comicController = Get.put(CategoryComicController(category));
 
     controller.addListener(() {
@@ -36,30 +33,6 @@ class PageCategoryComic extends StatelessWidget {
         ),
         title: Text(category, style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.shadow,
-        actions: [
-          DropdownButton<String>(
-            value: selectedCategory,
-            dropdownColor: Colors.black, // Nền của menu dropdown
-            style: TextStyle(color: Colors.white), // Màu chữ của item đã chọn
-            iconEnabledColor: Colors.white, // Màu icon mũi tên
-            underline: SizedBox(), // Xóa gạch dưới nếu muốn
-            items: categories.map(
-                  (e) => DropdownMenuItem<String>(
-                value: e,
-                child: Text(
-                  e,
-                  style: TextStyle(color: Colors.white), // Màu chữ trong menu dropdown
-                ),
-              ),
-            ).toList(),
-            onChanged: (value) {
-              // setState(() {
-              //   selectedCategory = value!;
-              // });
-              selectedCategory = value!;
-            },
-          ),
-        ],
       ),
       body: Obx(
           () => Padding(

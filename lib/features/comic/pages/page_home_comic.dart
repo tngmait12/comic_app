@@ -160,13 +160,13 @@ class PageHomeComic extends StatelessWidget {
                   ),
                   SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.female, color: Colors.white,), title: 'A girl',backgroundColor: Colors.red,onTap: () => Get.to(PageCategoryComic()))
+                      child: VerticalIconText(icon: Icon(Icons.female, color: Colors.white,), title: 'A girl',backgroundColor: Colors.red,onTap: () => Get.to(PageCategoryComic(category: 'adult',)))
                   ),SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.male, color: Colors.white,), title: 'A boy',backgroundColor: Colors.blue,onTap: () => Get.to(PageCategoryComic()))
+                      child: VerticalIconText(icon: Icon(Icons.male, color: Colors.white,), title: 'A boy',backgroundColor: Colors.blue,onTap: () => Get.to(PageCategoryComic(category: 'anime',)))
                   ),SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.yellow,onTap: () => Get.to(PageCategoryComic()))
+                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.yellow,onTap: () => Get.to(PageCategoryComic(category: 'chuyen-sinh',)))
                   ),
                 ],
               ),

@@ -1,15 +1,30 @@
+import 'package:comic_app/features/comic/controller/category_comic_controller.dart';
 import 'package:comic_app/my_widget/grid_layout.dart';
+import 'package:comic_app/my_widget/rounded_comic_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PageCategoryComic extends StatelessWidget {
-  const PageCategoryComic({super.key});
+
+  final String category;
+  final controller = ScrollController();
+
+  PageCategoryComic({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
 
     List<String> categories = ["Truyen moi", "Truyen hay", "Dang phat hanh","Top Thang","Top Luot xem"];
     String selectedCategory = "Truyen moi";
+
+    final comicController = Get.put(CategoryComicController(category));
+
+    controller.addListener(() {
+      if (controller.position.pixels >= controller.position.maxScrollExtent - 200) {
+        comicController.fetchComics();
+      }
+    });
+
 
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +34,7 @@ class PageCategoryComic extends StatelessWidget {
             Get.back(); // hoặc Navigator.pop(context)
           },
         ),
-        title: Text("Danh muc", style: TextStyle(color: Colors.white),),
+        title: Text(category, style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.shadow,
         actions: [
           DropdownButton<String>(
@@ -46,67 +61,45 @@ class PageCategoryComic extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
+      body: Obx(
+          () => Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              GridLayout(
-                  itemCount: 8,
-                  itemBuilder: (_ , index) => Container(
-                    width: 180,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Stack(
-                        children: [
-                          // Background image
-                          Image.network(
-                            "https://otruyenapi.com/uploads/comics/da-sac-ma-phap-su-thien-tai-thumb.jpg",
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                          // Bottom overlay with title + chapter
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [Colors.transparent, Colors.black87],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Đa Sắc Ma Pháp Sư Thiên Tài",
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    "Chapter 172",
-                                    style: TextStyle(color: Colors.white70, fontSize: 11),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+              Expanded(
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 16.0,
+                      mainAxisExtent: 288,
                     ),
-                  )
+                    controller: controller,
+                    itemCount: comicController.comics.length,
+                    itemBuilder: (context, index) {
+                      final comic = comicController.comics[index];
+                      return RoundedComicItem(imageUrl: comic.thumbUrl, name: comic.name, latestChapter: comic.latestChapter!);
+                    },
+                ),
               ),
+              if (comicController.isLoading.value)
+                Center(
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              if (!comicController.hasMore.value)
+                Center(
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Đã tải hết dữ liệu', style: TextStyle(color: Colors.white)),
+                  ),
+                ),
             ],
           ),
         ),
+
       ),
       backgroundColor: Theme.of(context).colorScheme.shadow,
     );

@@ -40,7 +40,7 @@ class ComicItem {
           .toList(),
       latestChapter: (json['chaptersLatest'] != null && json['chaptersLatest'].isNotEmpty)
           ? json['chaptersLatest'][0]['chapter_name']
-          : null,
+          : "next will be updated soon",
     );
   }
 }

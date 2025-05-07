@@ -1,4 +1,7 @@
+import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants.dart';
 
 class PageSearchComic extends StatefulWidget {
   const PageSearchComic ({super.key});
@@ -9,7 +12,7 @@ class PageSearchComic extends StatefulWidget {
 
 class _PageSearchComicState extends State<PageSearchComic> {
   TextEditingController searchCtrl = TextEditingController();
-  late int index = 10;
+  int index = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class _PageSearchComicState extends State<PageSearchComic> {
             icon: Icon(
               Icons.keyboard_arrow_left,
               color: Colors.white,
-              size: 40.0,
+              size: SIZE_ICO,
             )
         ),
         title: Text("Search", style: TextStyle(
@@ -57,6 +60,7 @@ class _PageSearchComicState extends State<PageSearchComic> {
                   prefixIcon: Icon(Icons.search, color: Colors.white,),
                   hintText: "Tìm truyên tranh..."
                 ),
+                autofocus: false,
                 onChanged: (value) {
 
                 },
@@ -70,7 +74,9 @@ class _PageSearchComicState extends State<PageSearchComic> {
               child: ListView.separated(
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => PageDetailComic(slug: "",),)
+                    );
                   },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,24 +91,25 @@ class _PageSearchComicState extends State<PageSearchComic> {
                           ),
                         ),
                       ),
+
                       Expanded(
                         flex: 3,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 10.0, top: 20.0),
+                          padding: const EdgeInsets.only(left: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // title
                               Text(
                                 "Đa Sắc Ma Pháp Sư Thiên Tài",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
-                              maxLines: 1,
+                                style: TextFormat.title,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               ),
                               // chapter
                               Text(
                                 "Chapter 172",
-                                style: TextStyle(color: Colors.white70, fontSize: 16),
+                                style: TextFormat.chapter,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )
@@ -116,7 +123,7 @@ class _PageSearchComicState extends State<PageSearchComic> {
                 separatorBuilder: (BuildContext context, int index) =>
                   Divider(
                     thickness: 2.0,
-                    color: Colors.white,
+                    color: WHITE,
                   ),
                 itemCount: index,
               ),

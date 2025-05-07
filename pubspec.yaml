@@ -37,8 +37,8 @@ dependencies:
   carousel_slider: ^5.0.0
   get: ^4.7.2
   supabase_flutter: ^2.9.0
-  supabase_auth_ui: ^0.5.5
   flutter_otp_text_field: ^1.5.1+1
+  supabase_auth_ui: ^0.5.5
 
 dev_dependencies:
   flutter_test:

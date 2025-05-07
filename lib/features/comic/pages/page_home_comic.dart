@@ -32,10 +32,7 @@ class PageHomeComic extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => PageSearchComic(),
-                )
-              );
+              Get.to(PageSearchComic());
             },
             icon: Icon(Icons.search, color: Colors.white))
         ],
@@ -200,7 +197,7 @@ class PageHomeComic extends StatelessWidget {
                         itemCount: comics.length,
                         itemBuilder: (context, index) {
                           final comic = comics[index];
-                          return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                          return RoundedComicItem(onTap: () => Get.to(PageDetailComic(item: comic,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
                         },
                     );
                   },

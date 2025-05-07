@@ -5,8 +5,9 @@ import 'package:comic_app/my_widget/async_widget.dart';
 import 'package:flutter/material.dart';
 
 class PageChapterComic extends StatelessWidget {
-  PageChapterComic({super.key, required this.chapterApiData});
+  PageChapterComic({super.key, required this.chapterName, required this.chapterApiData});
 
+  final String chapterName;
   final String chapterApiData;
 
   double navBarHeight = 100;
@@ -29,7 +30,7 @@ class PageChapterComic extends StatelessWidget {
             )
         ),
         title: Text(
-          "Chapter 1",
+          "Chapter $chapterName",
           style: TextFormat.title,
         ),
         backgroundColor: Theme.of(context).colorScheme.shadow,

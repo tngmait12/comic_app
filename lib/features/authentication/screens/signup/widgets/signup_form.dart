@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class comic_signupForm extends StatelessWidget {
-  const comic_signupForm({super.key});
+  const comic_signupForm({super.key, required this.emailController, required this.passwordController, required this.onRegister, required this.phoneController, required this.nameController});
+
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController phoneController;
+  final TextEditingController nameController;
+  final VoidCallback onRegister;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +55,7 @@ class comic_signupForm extends StatelessWidget {
 
             /// Username Field
             TextFormField(
+              controller: nameController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: "Tên người dùng",
@@ -60,6 +67,7 @@ class comic_signupForm extends StatelessWidget {
 
             /// Email Field
             TextFormField(
+              controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: "Email",
@@ -71,6 +79,7 @@ class comic_signupForm extends StatelessWidget {
 
             /// Phone Number Field
             TextFormField(
+              controller: phoneController,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 labelText: "Số điện thoại",
@@ -82,6 +91,7 @@ class comic_signupForm extends StatelessWidget {
 
             /// Password Field
             TextFormField(
+              controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: "Mật khẩu",
@@ -117,7 +127,7 @@ class comic_signupForm extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: onRegister,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,

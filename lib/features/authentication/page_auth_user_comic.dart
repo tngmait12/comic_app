@@ -77,11 +77,11 @@ class PageVerifyOTP extends StatelessWidget {
                   type: OtpType.email
               );
               if(response?.session!=null && response?.user!=null) {
-                // Navigator.of(context).pushAndRemoveUntil(
-                //   MaterialPageRoute(builder: (context) => PageProfileUser()),
-                //       (route) => false,
-                // );
-                Get.to(PageProfileUser());
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => PageProfileUser()),
+                      (route) => false,
+                );
+                // Get.to(PageProfileUser());
               }
             }, // end onSubmit
           ),
@@ -101,7 +101,7 @@ class PageVerifyOTP extends StatelessWidget {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text("Mã otp đã gửi vào $email của bạn"),
+                    content: Text("Mã OTP đã gửi vào $email của bạn"),
                   ),
                 );
               },

@@ -1,9 +1,11 @@
 import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
 
-Future<String> uploadImage({
+Future<String> updateImage({
   required File image,
   required String bucket,
   required String path,
@@ -11,13 +13,13 @@ Future<String> uploadImage({
 }) async {
   await supabase.storage
       .from(bucket)
-      .upload(
+      .update(
     path,
     image,
     fileOptions: FileOptions(cacheControl: '3600', upsert: upsert),
   );
-  String url = supabase.storage.from(bucket).getPublicUrl(path);
-  return url;
+  String publicUrl = supabase.storage.from(bucket).getPublicUrl(path);
+  return publicUrl + "?ts=${DateTime.now().microsecond}";
 }
 
 Future<void> deleteImage({required String bucket, required String path}) async {

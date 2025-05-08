@@ -8,6 +8,5 @@ class SearchComicController extends GetxController {
 
   void search({ String keyword = '' }) async {
     result.value = (await fetchSearchComic(keyword: keyword))!;
-
   }
 }

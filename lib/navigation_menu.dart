@@ -33,20 +33,29 @@ class NavigationMenu extends StatelessWidget {
                 ),
               ),
               child: NavigationBar(
-                        height: 80,
-                        elevation: 0,
-                        selectedIndex: controller.selectedIndex.value,
-                        onDestinationSelected: (index) => controller.selectedIndex.value = index,
-                        backgroundColor: Colors.black,
-                        indicatorColor: Colors.white.withOpacity(0.1),
-              
-                        destinations: const [
-              NavigationDestination(icon: Icon(Icons.home, color: Colors.white,), label: 'Home'),
-              NavigationDestination(icon: Icon(Icons.bookmark_add_outlined, color: Colors.white), label: 'New Update'),
-              NavigationDestination(icon: Icon(Icons.bookmark, color: Colors.white), label: 'Bookmark'),
-              NavigationDestination(icon: Icon(Icons.account_circle, color: Colors.white), label: "Profile"),
-                        ],
-                      ),
+                  height: 80,
+                  elevation: 0,
+                  selectedIndex: controller.selectedIndex.value,
+                  onDestinationSelected: (index) => controller.selectedIndex.value = index,
+                  backgroundColor: Colors.black,
+                  indicatorColor: Colors.white.withOpacity(0.1),
+                  labelTextStyle: MaterialStateProperty.all(
+                    TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+                  destinations: const [
+                    NavigationDestination(icon: Icon(Icons.home, color: Colors.white,), label: 'Trang chủ'),
+                    NavigationDestination(icon: Icon(Icons.bookmark_add_outlined, color: Colors.white), label: 'Mới cập nhật'),
+                    NavigationDestination(icon: Icon(Icons.bookmark, color: Colors.white), label: 'Bookmark'),
+                    NavigationDestination(
+                        icon: Icon(Icons.account_circle, color: Colors.white),
+                        label: "Tài khoản"),
+                  ],
+              ),
             ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),

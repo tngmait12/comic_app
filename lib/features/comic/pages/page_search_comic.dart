@@ -57,7 +57,7 @@ class PageSearchComic extends StatelessWidget {
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       prefixIcon: Icon(Icons.search, color: Colors.white,),
-                      hintText: "Tìm truyên tranh..."
+                      hintText: "Tìm truyện tranh..."
                   ),
                   autofocus: false,
                   onChanged: (value) {

@@ -10,7 +10,11 @@ Future<List<ChapterItem>> fetchListChapter({ required String slug }) async{
 
   if(response.statusCode == 200){
     final jsonData = json.decode(response.body);
-    final comics = jsonData['data']['item']['chapters'][0]['server_data'] as List;
+    final server = jsonData['data']['item']['chapters'] as List;
+
+    if (server.isEmpty) return <ChapterItem>[];
+
+    final comics = server[0]['server_data'] as List;
 
     return comics.map(
           (e) => ChapterItem.fromJson(e),

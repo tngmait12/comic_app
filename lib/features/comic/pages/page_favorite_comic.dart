@@ -10,7 +10,7 @@ class PageFavoriteComic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bookmark Comic",style: TextStyle(color: Colors.white)),
+        title: Text("Bookmark",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
       body: Center(
@@ -19,7 +19,7 @@ class PageFavoriteComic extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("You need login to follow your comic", style: TextStyle(color: Colors.white, fontSize: 32), textAlign: TextAlign.center,),
+              Text("Bạn cần đăng nhập để theo dõi truyện", style: TextStyle(color: Colors.white, fontSize: 32), textAlign: TextAlign.center,),
               ElevatedButton(
                   onPressed: () {
                     Get.to(comic_loginScreen());
@@ -33,7 +33,7 @@ class PageFavoriteComic extends StatelessWidget {
                     ),
                     elevation: 4,
                   ),
-                  child: Text("Login", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
+                  child: Text("Đăng nhập", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
               )
             ],
           ),

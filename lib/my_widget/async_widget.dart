@@ -20,7 +20,7 @@ class AsyncWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircularProgressIndicator(),
-          Text("No Data!!!", style: TextStyle(color: Colors.blueGrey, fontSize: 30))
+          Text("Loading...", style: TextStyle(color: Colors.blueGrey, fontSize: 30))
         ],
       ),) : loading!();
     }

@@ -14,9 +14,9 @@ class PageNewComic extends StatelessWidget {
 
     Map<String, String> categoryMap = {
       'Truyện mới': 'truyen-moi',
-      'Sap ra mat': 'sap-ra-mat',
+      'Sắp ra mắt': 'sap-ra-mat',
       'Đang phát hành': 'dang-phat-hanh',
-      'Hoan Thanh': 'hoan-thanh',
+      'Hoàn thành': 'hoan-thanh',
     };
 
 
@@ -32,7 +32,7 @@ class PageNewComic extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Updated Comic", style: TextStyle(color: Colors.white),),
+        title: Text("Truyện mới cập nhật", style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.shadow,
         actions: [
           Obx(

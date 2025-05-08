@@ -7,6 +7,7 @@ import 'package:comic_app/features/comic/pages/page_new_comic.dart';
 import 'package:comic_app/features/comic/pages/page_search_comic.dart';
 import 'package:comic_app/my_widget/rounded_comic_item.dart';
 import 'package:comic_app/my_widget/vertical_icon_text.dart';
+import 'package:comic_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:comic_app/my_widget/grid_layout.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,12 @@ class PageHomeComic extends StatelessWidget {
                   future: fetchComicHomeData(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const SizedBox(
+                        height: 200,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
                     } else if (snapshot.hasError) {
                       print('Lỗi: ${snapshot.error}');
                       return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
@@ -71,71 +77,78 @@ class PageHomeComic extends StatelessWidget {
                         ),
                         items: comics.map(
                           (comic) {
-                            return Container(
-                              margin: const EdgeInsets.all(5.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-
-                                      Image.network(
-                                        "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
-                                        fit: BoxFit.cover,
-                                        color: Colors.black.withOpacity(0.4),
-                                        colorBlendMode: BlendMode.darken,
-                                      ),
-
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            // Bên trái: Thông tin
-                                            Flexible(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    comic.name,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  Text(
-                                                    "Chapter ${comic.latestChapter}",
-                                                    style: const TextStyle(
-                                                      color: Colors.white70,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                            const SizedBox(width: 12), // Khoảng cách giữa text và ảnh
-
-                                            // Bên phải: Ảnh rõ nét nhỏ hơn
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
-                                              child: Image.network(
-                                                "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
-                                                width: 100,
-                                                height: 140,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ],
+                            return GestureDetector(
+                              onTap: () => Get.to(PageDetailComic(item: comic)),
+                              child: Container(
+                                margin: const EdgeInsets.all(5.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                              
+                                        Image.network(
+                                          "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
+                                          fit: BoxFit.cover,
+                                          color: Colors.black.withOpacity(0.4),
+                                          colorBlendMode: BlendMode.darken,
                                         ),
-                                      ),
-
-                                    ],
+                              
+                                        Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Expanded(
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                // Bên trái: Thông tin
+                                                Flexible(
+                              
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        comic.name,
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                      const SizedBox(height: 8),
+                                                      Text(
+                                                        "Chapter ${comic.latestChapter}",
+                                                        style: const TextStyle(
+                                                          color: Colors.white70,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                              
+                                                const SizedBox(width: 12), // Khoảng cách giữa text và ảnh
+                              
+                                                // Bên phải: Ảnh rõ nét nhỏ hơn
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  child: Image.network(
+                                                    "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
+                                                    width: 100,
+                                                    height: 140,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                              
+                                      ],
+                                  ),
                                 ),
                               ),
                             );
@@ -151,18 +164,22 @@ class PageHomeComic extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    height: 80,
-                    child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.green,onTap: () => Get.to(PageListCategory()),)
+                      height: 80,
+                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
+                      child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Thể loại',backgroundColor: Colors.green,onTap: () => Get.to(PageListCategory()),)
                   ),
                   SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.female, color: Colors.white,), title: 'A girl',backgroundColor: Colors.red,onTap: () => Get.to(PageCategoryComic(category: 'adult',)))
+                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
+                      child: VerticalIconText(icon: Icon(Icons.spa, color: Colors.white,), title: 'Fantasy',backgroundColor: Colors.red,onTap: () => Get.to(PageCategoryComic(category: 'fantasy',)))
                   ),SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.male, color: Colors.white,), title: 'A boy',backgroundColor: Colors.blue,onTap: () => Get.to(PageCategoryComic(category: 'anime',)))
+                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
+                      child: VerticalIconText(icon: Icon(Icons.create, color: Colors.white,), title: 'Manhwa',backgroundColor: Colors.blue,onTap: () => Get.to(PageCategoryComic(category: 'manhwa',)))
                   ),SizedBox(
                       height: 80,
-                      child: VerticalIconText(icon: Icon(Icons.boy, color: Colors.white,), title: 'Danh Muc',backgroundColor: Colors.yellow,onTap: () => Get.to(PageCategoryComic(category: 'chuyen-sinh',)))
+                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
+                      child: VerticalIconText(icon: Icon(Icons.book, color: Colors.white,), title: 'One shot',backgroundColor: Colors.yellow,onTap: () => Get.to(PageCategoryComic(category: 'one-shot',)))
                   ),
                 ],
               ),
@@ -170,8 +187,13 @@ class PageHomeComic extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Manga New Updated", style: TextStyle(color: Colors.white, fontSize: 24),),
-                  IconButton(onPressed: () => Get.to(PageNewComic()), icon: Icon(Icons.arrow_forward_ios_outlined, size: 24,color: Colors.white,))
+                  Text("Truyện mới cập nhật", style: TextStyle(color: Colors.white, fontSize: 24),),
+                  IconButton(
+                      onPressed: () {
+                        final controller = Get.find<NavigationController>();
+                        controller.selectedIndex.value = 1;
+                      },
+                      icon: Icon(Icons.arrow_forward_ios_outlined, size: 20,color: Colors.white,))
                 ],
               ),
 

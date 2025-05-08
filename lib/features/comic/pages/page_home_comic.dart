@@ -3,7 +3,6 @@ import 'package:comic_app/features/comic/models/comic_item.dart';
 import 'package:comic_app/features/comic/pages/page_category_comic.dart';
 import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:comic_app/features/comic/pages/page_list_category.dart';
-import 'package:comic_app/features/comic/pages/page_new_comic.dart';
 import 'package:comic_app/features/comic/pages/page_search_comic.dart';
 import 'package:comic_app/my_widget/rounded_comic_item.dart';
 import 'package:comic_app/my_widget/vertical_icon_text.dart';
@@ -40,192 +39,181 @@ class PageHomeComic extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SizedBox(height: 16.0,),
-              
-              ///Carousel Slider
-              FutureBuilder<List<ComicItem>>(
-                  future: fetchComicHomeData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const SizedBox(
+        child: Column(
+          children: [
+            SizedBox(height: 16.0,),
+
+            ///Carousel Slider
+            FutureBuilder<List<ComicItem>>(
+                future: fetchComicHomeData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                      height: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    print('Lỗi: ${snapshot.error}');
+                    return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('Không có ảnh'));
+                  }
+
+                  final carousels = snapshot.data!;
+
+                  final comics = carousels.take(8).toList();
+
+                  return CarouselSlider(
+                      options: CarouselOptions(
                         height: 200,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      print('Lỗi: ${snapshot.error}');
-                      return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Center(child: Text('Không có ảnh'));
-                    }
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        aspectRatio: 2.0,
+                      ),
+                      items: comics.map(
+                        (comic) {
+                          return GestureDetector(
+                            onTap: () => Get.to(PageDetailComic(item: comic)),
+                            child: Container(
+                              margin: const EdgeInsets.all(5.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
 
-                    final carousels = snapshot.data!;
+                                      Image.network(
+                                        "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
+                                        fit: BoxFit.cover,
+                                        color: Colors.black.withOpacity(0.4),
+                                        colorBlendMode: BlendMode.darken,
+                                      ),
 
-                    final comics = carousels.take(8).toList();
+                                      Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Expanded(
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              // Bên trái: Thông tin
+                                              Flexible(
 
-                    return CarouselSlider(
-                        options: CarouselOptions(
-                          height: 200,
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          aspectRatio: 2.0,
-                        ),
-                        items: comics.map(
-                          (comic) {
-                            return GestureDetector(
-                              onTap: () => Get.to(PageDetailComic(item: comic)),
-                              child: Container(
-                                margin: const EdgeInsets.all(5.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                              
-                                        Image.network(
-                                          "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
-                                          fit: BoxFit.cover,
-                                          color: Colors.black.withOpacity(0.4),
-                                          colorBlendMode: BlendMode.darken,
-                                        ),
-                              
-                                        Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Expanded(
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                // Bên trái: Thông tin
-                                                Flexible(
-                              
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        comic.name,
-                                                        style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 18,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow.ellipsis,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      comic.name,
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold,
                                                       ),
-                                                      const SizedBox(height: 8),
-                                                      Text(
-                                                        "Chapter ${comic.latestChapter}",
-                                                        style: const TextStyle(
-                                                          color: Colors.white70,
-                                                          fontSize: 14,
-                                                        ),
+                                                      maxLines: 2,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                    const SizedBox(height: 8),
+                                                    Text(
+                                                      "Chapter ${comic.latestChapter}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white70,
+                                                        fontSize: 14,
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                              
-                                                const SizedBox(width: 12), // Khoảng cách giữa text và ảnh
-                              
-                                                // Bên phải: Ảnh rõ nét nhỏ hơn
-                                                ClipRRect(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  child: Image.network(
-                                                    "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
-                                                    width: 100,
-                                                    height: 140,
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                              ),
+
+                                              const SizedBox(width: 12), // Khoảng cách giữa text và ảnh
+
+                                              // Bên phải: Ảnh rõ nét nhỏ hơn
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(8),
+                                                child: Image.network(
+                                                  "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
+                                                  width: 100,
+                                                  height: 140,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                              
-                                      ],
-                                  ),
+                                      ),
+
+                                    ],
                                 ),
                               ),
-                            );
-                          },
-                        ).toList(),
-
-                    );
-                  },
-              ),
-              SizedBox(height: 16.0,),
-              ///Category
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                      height: 80,
-                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
-                      child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Thể loại',backgroundColor: Colors.green,onTap: () => Get.to(PageListCategory()),)
-                  ),
-                  SizedBox(
-                      height: 80,
-                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
-                      child: VerticalIconText(icon: Icon(Icons.spa, color: Colors.white,), title: 'Fantasy',backgroundColor: Colors.red,onTap: () => Get.to(PageCategoryComic(category: 'fantasy',)))
-                  ),SizedBox(
-                      height: 80,
-                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
-                      child: VerticalIconText(icon: Icon(Icons.create, color: Colors.white,), title: 'Manhwa',backgroundColor: Colors.blue,onTap: () => Get.to(PageCategoryComic(category: 'manhwa',)))
-                  ),SizedBox(
-                      height: 80,
-                      width: ((MediaQuery.of(context).size.width) - 64) / 4,
-                      child: VerticalIconText(icon: Icon(Icons.book, color: Colors.white,), title: 'One shot',backgroundColor: Colors.yellow,onTap: () => Get.to(PageCategoryComic(category: 'one-shot',)))
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Truyện mới cập nhật", style: TextStyle(color: Colors.white, fontSize: 24),),
-                  IconButton(
-                      onPressed: () {
-                        final controller = Get.find<NavigationController>();
-                        controller.selectedIndex.value = 1;
-                      },
-                      icon: Icon(Icons.arrow_forward_ios_outlined, size: 20,color: Colors.white,))
-                ],
-              ),
-
-              // Padding(
-              //   padding: const EdgeInsets.all(12.0),
-              //   child: GridLayout(itemCount: 8, itemBuilder: (_ , index) => RoundedComicItem(onTap: () => Get.to(PageDetailComic(id: 1)),name: "Đa Sắc Ma Pháp Sư Thiên Tài",latestChapter: "117",imageUrl: "da-sac-ma-phap-su-thien-tai-thumb.jpg",)),
-              // )
-              FutureBuilder(
-                  future: fetchComicHomeData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      print('Lỗi: ${snapshot.error}');
-                      return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Center(child: Text('Không có ảnh'));
-                    }
-
-                    final comics = snapshot.data!;
-
-                    return GridLayout(
-                        itemCount: comics.length,
-                        itemBuilder: (context, index) {
-                          final comic = comics[index];
-                          return RoundedComicItem(onTap: () => Get.to(PageDetailComic(item: comic,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                            ),
+                          );
                         },
-                    );
-                  },
-              ),
-            ],
-          ),
+                      ).toList(),
+
+                  );
+                },
+            ),
+            SizedBox(height: 16.0,),
+            ///Category
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                    height: 85,
+                    child: VerticalIconText(icon: Icon(Icons.category, color: Colors.white,), title: 'Thể loại',backgroundColor: Colors.green,onTap: () => Get.to(PageListCategory()),)
+                ),
+                SizedBox(
+                    height: 85,
+                    child: VerticalIconText(icon: Icon(Icons.spa, color: Colors.white,), title: 'Fantasy',backgroundColor: Colors.red,onTap: () => Get.to(PageCategoryComic(category: 'fantasy',)))
+                ),SizedBox(
+                    height: 85,
+                    child: VerticalIconText(icon: Icon(Icons.create, color: Colors.white,), title: 'Manhwa',backgroundColor: Colors.blue,onTap: () => Get.to(PageCategoryComic(category: 'manhwa',)))
+                ),SizedBox(
+                    height: 85,
+                    child: VerticalIconText(icon: Icon(Icons.book, color: Colors.white,), title: 'One shot',backgroundColor: Colors.yellow,onTap: () => Get.to(PageCategoryComic(category: 'one-shot',)))
+                ),
+              ],
+            ),
+            SizedBox(height: 16.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Truyện mới cập nhật", style: TextStyle(color: Colors.white, fontSize: 24),),
+                IconButton(
+                    onPressed: () {
+                      final controller = Get.find<NavigationController>();
+                      controller.selectedIndex.value = 1;
+                    },
+                    icon: Icon(Icons.arrow_forward_ios_outlined, size: 20,color: Colors.white,))
+              ],
+            ),
+
+            FutureBuilder(
+                future: fetchComicHomeData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    print('Lỗi: ${snapshot.error}');
+                    return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('Không có ảnh'));
+                  }
+
+                  final comics = snapshot.data!;
+
+                  return GridLayout(
+                      itemCount: comics.length,
+                      itemBuilder: (context, index) {
+                        final comic = comics[index];
+                        return RoundedComicItem(onTap: () => Get.to(PageDetailComic(item: comic,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                      },
+                  );
+                },
+            ),
+          ],
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.shadow,

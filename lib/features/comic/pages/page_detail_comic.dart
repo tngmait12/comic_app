@@ -1,43 +1,44 @@
-
 import 'package:comic_app/constants.dart';
-import 'package:comic_app/features/comic/fetch_api/fetch_detail_comic.dart';
-import 'package:comic_app/features/comic/models/chapter_item.dart';
-import 'package:comic_app/features/comic/models/detail_comic.dart';
+import 'package:comic_app/features/comic/fetch_api/fetch_list_chapter.dart';
+import 'package:comic_app/features/comic/models/comic_item.dart';
 import 'package:comic_app/features/comic/pages/page_chapter_comic.dart';
 import 'package:comic_app/my_widget/async_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PageDetailComic extends StatelessWidget {
-  PageDetailComic({super.key, required this.slug});
+  PageDetailComic({super.key, required this.item});
 
   late int index = 10;
-  final String slug;
+  final ComicItem item;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.keyboard_arrow_left,
-            color: Colors.white,
-            size: SIZE_ICO,
-          )
-        ),
-        backgroundColor: Theme.of(context).colorScheme.shadow
-      ),
-      body: FutureBuilder(
-          future: fetchDetailComic(slug),
-          builder: (context, snapshot) {
-            return AsyncWidget(
-                snapshot: snapshot,
-                builder: (context, snapshot) {
-                  var detail = snapshot.data! as DetailComic;
-                  return Padding(
+
+    return FutureBuilder(
+        future: fetchListChapter(slug: item.slug),
+        builder: (context, snapshot) {
+          return AsyncWidget(
+              snapshot: snapshot,
+              builder: (context, snapshot) {
+                var chapters = snapshot.data!;
+                chapters.reversed.toList();
+
+                return Scaffold(
+                  appBar: AppBar(
+                      leading: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_left,
+                            color: Colors.white,
+                            size: SIZE_ICO,
+                          )
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.shadow
+                  ),
+                  body: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +51,7 @@ class PageDetailComic extends StatelessWidget {
                               flex: 1,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12.0),
-                                child: Image.network("https://otruyenapi.com/uploads/comics/${detail.thumbUrl}",
+                                child: Image.network("https://otruyenapi.com/uploads/comics/${item.thumbUrl}",
                                   fit: BoxFit.cover,
                                   height: HEIGHT_IMG,
                                 ),
@@ -64,7 +65,7 @@ class PageDetailComic extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        detail.name,
+                                        item.name,
                                         style: TextFormat.title,
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
@@ -73,11 +74,6 @@ class PageDetailComic extends StatelessWidget {
                                         children: [
                                           ElevatedButton(
                                             onPressed: () {
-                                              // Navigator.of(context).push(
-                                              //     MaterialPageRoute(builder: (context) =>
-                                              //         PageChapterComic(id: id, chapter: index,),
-                                              //     )
-                                              // );
                                             },
                                             style: ButtonStyle(
                                               backgroundColor: WidgetStatePropertyAll<Color>(Colors.cyan),
@@ -146,7 +142,7 @@ class PageDetailComic extends StatelessWidget {
                                     ),
                                     padding: EdgeInsets.all(5.0),
                                     child: Text(
-                                      detail.status,
+                                      item.status,
                                       style: TextStyle(
                                           color: WHITE,
                                           fontWeight: FontWeight.w600
@@ -170,7 +166,7 @@ class PageDetailComic extends StatelessWidget {
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
-                                          children: detail.category.map(
+                                          children: item.categories.map(
                                                   (e) => Padding(
                                                 padding: const EdgeInsets.all(5.0),
                                                 child: Container(
@@ -210,7 +206,7 @@ class PageDetailComic extends StatelessWidget {
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (context, index) {
-                              var chapter = detail.chapters[index] as ChapterItem;
+                              var chapter = chapters.reversed.toList()[index];
 
                               return ListTile(
                                 leading: Text(
@@ -218,21 +214,22 @@ class PageDetailComic extends StatelessWidget {
                                   style: TextFormat.title,
                                 ),
                                 onTap: () {
-                                  Get.to(PageChapterComic(chapterApiData: chapter.chapterApiData,));
+                                  Get.to(PageChapterComic(chapterName: chapter.chapterName, chapterApiData: chapter.chapterApiData,));
                                 },
                               );
                             },
-                            itemCount: detail.chapters.length,
+                            itemCount: chapters.length,
                           ),
                         )
                       ],
                     ),
-                  );
-                },
-            );
-          },
-      ),
-      backgroundColor: Theme.of(context).colorScheme.shadow,
+
+                  ),
+                  backgroundColor: Theme.of(context).colorScheme.shadow,
+                );
+              },
+          );
+        },
     );
   }
 }

@@ -27,7 +27,7 @@ class ComicItem {
 
   factory ComicItem.fromJson(Map<String, dynamic> json) {
     return ComicItem(
-      id: json['_id'],
+      id: json['_id'] ?? 'none',
       name: json['name'],
       slug: json['slug'],
       originName: List<String>.from(json['origin_name'] ?? []),

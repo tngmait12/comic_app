@@ -18,7 +18,7 @@ class PageComicLogin extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             Expanded(
@@ -61,7 +61,7 @@ class PageVerifyOTP extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           OtpTextField(
-            numberOfFields: 5,
+            numberOfFields: 6,
             borderColor: Color(0xFF512DA8),
             //set to true to show as box or false to show as dash
             showFieldAsBox: true,
@@ -77,10 +77,11 @@ class PageVerifyOTP extends StatelessWidget {
                   type: OtpType.email
               );
               if(response?.session!=null && response?.user!=null) {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => PageProfileUser()),
-                      (route) => false,
-                );
+                // Navigator.of(context).pushAndRemoveUntil(
+                //   MaterialPageRoute(builder: (context) => PageProfileUser()),
+                //       (route) => false,
+                // );
+                Get.to(PageProfileUser());
               }
             }, // end onSubmit
           ),

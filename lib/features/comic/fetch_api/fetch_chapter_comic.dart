@@ -16,3 +16,4 @@ Future<ChapterComic> fetchChapterComic (String chapterApiComic) async {
     throw Exception('Failed to load data');
   }
 }
+

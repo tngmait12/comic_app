@@ -1,4 +1,4 @@
-import 'package:comic_app/features/comic/pages/page_favorite_comic.dart';
+import 'package:comic_app/features/comic/pages/page_bookmark_comic.dart';
 import 'package:comic_app/features/comic/pages/page_home_comic.dart';
 import 'package:comic_app/features/comic/pages/page_new_comic.dart';
 import 'package:comic_app/features/comic/pages/page_setting_comic.dart';
@@ -39,13 +39,13 @@ class NavigationMenu extends StatelessWidget {
                   onDestinationSelected: (index) => controller.selectedIndex.value = index,
                   backgroundColor: Colors.black,
                   indicatorColor: Colors.white.withOpacity(0.1),
-                  labelTextStyle: MaterialStateProperty.all(
-                    TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  // labelTextStyle: MaterialStateProperty.all(
+                  //   TextStyle(
+                  //     color: Colors.white,
+                  //     fontSize: 14,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
                   destinations: const [
                     NavigationDestination(icon: Icon(Icons.home, color: Colors.white,), label: 'Trang chủ'),
@@ -69,7 +69,7 @@ class NavigationController extends GetxController{
   final screens = [
     const PageHomeComic(),
     const PageNewComic(),
-    const PageFavoriteComic(),
+     PageBookmarkComic(),
     const PageSettingComic()
   ];
 }

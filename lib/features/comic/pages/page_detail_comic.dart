@@ -3,8 +3,11 @@ import 'package:comic_app/features/comic/fetch_api/fetch_list_chapter.dart';
 import 'package:comic_app/features/comic/models/comic_item.dart';
 import 'package:comic_app/features/comic/pages/page_chapter_comic.dart';
 import 'package:comic_app/my_widget/async_widget.dart';
+import 'package:comic_app/my_widget/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controller/bookmark_controller.dart';
 
 class PageDetailComic extends StatelessWidget {
   PageDetailComic({super.key, required this.item});
@@ -14,6 +17,8 @@ class PageDetailComic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final bookmarkController = Get.find<BookmarkController>();
 
     return FutureBuilder(
         future: fetchListChapter(slug: item.slug),
@@ -96,16 +101,19 @@ class PageDetailComic extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          IconButton(
+                                          Obx(() => IconButton(
                                             onPressed: () {
-
+                                              bookmarkController.toggleBookmark(item.slug);
                                             },
                                             icon: Icon(
-                                              Icons.bookmark_border,
+                                              bookmarkController.isBookmarked(item.slug)
+                                                  ? Icons.bookmark
+                                                  : Icons.bookmark_border,
                                               color: WHITE,
                                               size: 45.0,
                                             ),
-                                          )
+                                          )),
+
                                         ],
                                       )
                                     ],
@@ -214,6 +222,7 @@ class PageDetailComic extends StatelessWidget {
                                   style: TextFormat.title,
                                 ),
                                 onTap: () {
+                                  bookmarkController.addToHistory(item.slug, chapter.chapterName);
                                   Get.to(PageChapterComic(chapterName: chapter.chapterName, chapterApiData: chapter.chapterApiData,));
                                 },
                               );

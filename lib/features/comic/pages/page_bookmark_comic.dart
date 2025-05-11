@@ -32,7 +32,7 @@ class PageBookmarkComic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoggedIn = response?.session!=null && response?.user!=null;
+    final isLoggedIn = Get.find<AuthController>().response.value?.session != null && Get.find<AuthController>().response.value?.user != null;
     return isLoggedIn ? Scaffold(
       appBar: AppBar(
         title: Text("Bookmark",style: TextStyle(color: Colors.white)),

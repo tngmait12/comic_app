@@ -1,4 +1,5 @@
 import 'package:comic_app/features/authentication/pages/page_auth_user.dart';
+import 'package:comic_app/features/comic/models/detail_comic.dart';
 import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:comic_app/my_widget/async_widget.dart';
 import 'package:flutter/material.dart';
@@ -44,13 +45,13 @@ class PageHistoryComic extends StatelessWidget {
           return AsyncWidget(
             snapshot: snapshot,
             builder: (context, snapshot) {
-              final comics = snapshot.data!;
+              List<ComicItem> comics = snapshot.data;
 
               return GridLayout(
                 itemCount: comics.length,
                 itemBuilder: (context, index) {
                   final comic = comics[index];
-                  return RoundedComicItem(onTap: () => Get.to(PageDetailComic(item: comic,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                  return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
                 },
               );
             },

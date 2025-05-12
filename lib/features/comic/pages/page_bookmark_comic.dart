@@ -1,3 +1,4 @@
+import 'package:comic_app/constants.dart';
 import 'package:comic_app/features/authentication/pages/page_auth_user.dart';
 import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:comic_app/my_widget/async_widget.dart';
@@ -32,16 +33,18 @@ class PageBookmarkComic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final isLoggedIn = Get.find<AuthController>().response.value?.session != null && Get.find<AuthController>().response.value?.user != null;
     return isLoggedIn ? Scaffold(
       appBar: AppBar(
         title: Text("Bookmark",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
-      body: Obx(() {
+      body: isLoggedIn
+      ? Obx(() {
         final bookmarks = bookmarkController.bookmarks;
         if (bookmarks.isEmpty) {
-          return Center(child: Text("Chưa có truyện nào được lưu", style: TextStyle(color: Colors.white)));
+          return Center(child: Text("Chưa có truyện nào được lưu", style: TextFormat.normal));
         }
         return FutureBuilder(
           future: fetchComics(bookmarks),
@@ -49,27 +52,23 @@ class PageBookmarkComic extends StatelessWidget {
             return AsyncWidget(
               snapshot: snapshot,
               builder: (context, snapshot) {
-                final comics = snapshot.data!;
+                final comics = snapshot.data;
 
-                return GridLayout(
-                  itemCount: comics.length,
-                  itemBuilder: (context, index) {
-                    final comic = comics[index];
-                    return RoundedComicItem(onTap: () => Get.to(PageDetailComic(item: comic,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
-                  },
+                return SingleChildScrollView(
+                  child: GridLayout(
+                    itemCount: comics.length,
+                    itemBuilder: (context, index) {
+                      final comic = comics[index] as ComicItem;
+                      return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                    },
+                  ),
                 );
               },
             );
           },
         );
-      },),
-      backgroundColor: Theme.of(context).colorScheme.shadow,
-    ) : Scaffold(
-      appBar: AppBar(
-        title: Text("Bookmark",style: TextStyle(color: Colors.white)),
-        backgroundColor: Theme.of(context).colorScheme.shadow,
-      ),
-      body: Center(
+      },)
+      : Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

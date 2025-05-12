@@ -7,6 +7,7 @@ class SearchComicController extends GetxController {
   var hasResult = false.obs;
 
   void search({ String keyword = '' }) async {
-    result.value = (await fetchSearchComic(keyword: keyword))!;
+    result.value = (await fetchSearchComic(keyword: keyword));
+    hasResult.value = result.value.isNotEmpty;
   }
 }

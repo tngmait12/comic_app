@@ -79,7 +79,7 @@ class PageNewComic extends StatelessWidget {
                   itemCount: comicController.comics.length,
                   itemBuilder: (context, index) {
                     final comic = comicController.comics[index];
-                    return RoundedComicItem(imageUrl: comic.thumbUrl, name: comic.name, latestChapter: comic.latestChapter!, onTap: () => Get.to(PageDetailComic(item: comic,)),);
+                    return RoundedComicItem(imageUrl: comic.thumbUrl, name: comic.name, latestChapter: comic.latestChapter!, onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),);
                   },
                 ),
               ),

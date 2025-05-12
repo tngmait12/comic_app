@@ -4,7 +4,7 @@ const Color WHITE = Colors.white;
 const Color BLACK = Colors.black;
 
 // display
-const double HEIGHT_IMG = 200.0;
+const double WIDTH_IMG = 130.0;
 const double BORDER_RAD = 12.0;
 
 // size
@@ -14,7 +14,8 @@ const double SIZE_ICO = 40.0;
 
 // text
 class TextFormat {
-  static TextStyle title = TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: WHITE);
-  static TextStyle chapter = TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: WHITE);
-  static TextStyle normal = TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: WHITE);
+  static TextStyle title = TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: WHITE);
+  static TextStyle chapter = TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: WHITE);
+  static TextStyle normal = TextStyle(fontSize: 14, color: WHITE);
+  static TextStyle label = TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
 }

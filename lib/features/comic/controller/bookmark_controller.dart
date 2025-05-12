@@ -94,7 +94,6 @@ class BookmarkController extends GetxController {
     await fetchData();
   }
 
-
   Future<void> addToHistory(String slug, String chapterName) async {
     final user = supabase.auth.currentUser;
     if (user == null) return;

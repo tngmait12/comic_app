@@ -12,7 +12,7 @@ class PageSearchComic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchController = Get.put(SearchComicController(), permanent: false);
+    final controller = Get.put(SearchComicController(), permanent: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +21,7 @@ class PageSearchComic extends StatelessWidget {
               Navigator.pop(context);
             },
             icon: Icon(
-              Icons.keyboard_arrow_left,
+              Icons.navigate_before_outlined,
               color: Colors.white,
               size: SIZE_ICO,
             )
@@ -61,7 +61,7 @@ class PageSearchComic extends StatelessWidget {
                   ),
                   autofocus: false,
                   onChanged: (value) {
-                    searchController.search(keyword: value);
+                    controller.search(keyword: value);
                   },
                 ),
               ),
@@ -69,31 +69,29 @@ class PageSearchComic extends StatelessWidget {
               SizedBox(height: 20.0,),
 
               // list comic
-              Expanded(
+              (controller.hasResult.value)
+                ? Expanded(
                 child: ListView.separated(
                   itemBuilder: (context, index) {
-                    var comic = searchController.result.value[index];
+                    var comic = controller.result.value[index];
 
                     return GestureDetector(
                       onTap: () {
-                        Get.to(PageDetailComic(item: comic,));
+                        Get.to(PageDetailComic(slug: comic.slug,));
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0),
-                              child: Image.network(
-                                "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
-                                fit: BoxFit.cover,
-                              ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Image.network(
+                              "https://otruyenapi.com/uploads/comics/${comic.thumbUrl}",
+                              fit: BoxFit.cover,
+                              width: WIDTH_IMG,
                             ),
                           ),
 
                           Expanded(
-                              flex: 3,
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Column(
@@ -103,7 +101,7 @@ class PageSearchComic extends StatelessWidget {
                                     Text(
                                       comic.name,
                                       style: TextFormat.title,
-                                      maxLines: 2,
+                                      maxLines: 4,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     // chapter
@@ -126,9 +124,15 @@ class PageSearchComic extends StatelessWidget {
                           thickness: 2.0,
                           color: WHITE,
                         ),
-                    itemCount: searchController.result.value.length,
+                    itemCount: controller.result.value.length,
                 )
               )
+                : Center(
+                  child: Text(
+                  'Không có truyện được tìm thấy!',
+                  style: TextFormat.normal,
+                                ),
+                )
             ],
           ),
         )

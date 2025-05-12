@@ -186,7 +186,8 @@ class PageHomeComic extends StatelessWidget {
                       final controller = Get.find<NavigationController>();
                       controller.selectedIndex.value = 1;
                     },
-                    icon: Icon(Icons.arrow_forward_ios_outlined, size: 20,color: Colors.white,))
+                    icon: Icon(Icons.arrow_forward_ios_outlined, size: 20,color: Colors.white,)
+                )
               ],
             ),
 

@@ -11,7 +11,7 @@ Future<List<CategoryComic>> fetchListCategoryComic() async{
 
   if(response.statusCode == 200){
     final jsonData = json.decode(response.body);
-    final categories = jsonData['data']['items'] as List;
+    final categories = jsonData['data']['item'] as List;
 
     return categories.map(
       (e) => CategoryComic.fromJson(e)

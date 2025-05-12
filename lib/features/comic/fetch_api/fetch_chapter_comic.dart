@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:comic_app/features/comic/models/chapter_comic.dart';
 import 'package:http/http.dart' as http;
 
-
 Future<ChapterComic> fetchChapterComic (String chapterApiComic) async {
   final response = await http.get(Uri.parse(chapterApiComic));
 

@@ -1,4 +1,5 @@
 import 'package:comic_app/features/comic/controller/category_comic_controller.dart';
+import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:comic_app/my_widget/grid_layout.dart';
 import 'package:comic_app/my_widget/rounded_comic_item.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class PageCategoryComic extends StatelessWidget {
                     itemCount: comicController.comics.length,
                     itemBuilder: (context, index) {
                       final comic = comicController.comics[index];
-                      return RoundedComicItem(imageUrl: comic.thumbUrl, name: comic.name, latestChapter: comic.latestChapter!);
+                      return RoundedComicItem(imageUrl: comic.thumbUrl, name: comic.name, latestChapter: comic.latestChapter!, onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),);
                     },
                 ),
               ),

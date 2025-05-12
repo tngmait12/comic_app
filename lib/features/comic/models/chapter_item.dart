@@ -13,7 +13,7 @@ class ChapterItem {
 
   factory ChapterItem.fromJson(Map<String, dynamic> json) {
     return ChapterItem(
-      filename: json['filename'],
+      filename: json['filename'].split("[")[1].split("]")[0],
       chapterName: json['chapter_name'],
       chapterTitle: json['chapter_title'],
       chapterApiData: json['chapter_api_data'],

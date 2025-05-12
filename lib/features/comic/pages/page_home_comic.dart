@@ -75,7 +75,7 @@ class PageHomeComic extends StatelessWidget {
                       items: comics.map(
                         (comic) {
                           return GestureDetector(
-                            onTap: () => Get.to(PageDetailComic(item: comic)),
+                            onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),
                             child: Container(
                               margin: const EdgeInsets.all(5.0),
                               child: ClipRRect(
@@ -202,13 +202,13 @@ class PageHomeComic extends StatelessWidget {
                     return Center(child: Text('Không có ảnh'));
                   }
 
-                  final comics = snapshot.data!;
+                  List<ComicItem> comics = snapshot.data!;
 
                   return GridLayout(
                       itemCount: comics.length,
                       itemBuilder: (context, index) {
                         final comic = comics[index];
-                        return RoundedComicItem(onTap: () => Get.to(PageDetailComic(item: comic,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                        return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
                       },
                   );
                 },

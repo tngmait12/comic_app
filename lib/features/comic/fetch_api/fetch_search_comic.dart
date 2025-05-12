@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 final baseUrl = "https://otruyenapi.com/v1/api/tim-kiem?keyword=";
 
-Future<List<ComicItem>?> fetchSearchComic({ required String keyword }) async{
+Future<List<ComicItem>> fetchSearchComic({ required String keyword }) async{
   if (keyword == '') return [];
 
   final response = await http.get(Uri.parse(baseUrl + keyword));

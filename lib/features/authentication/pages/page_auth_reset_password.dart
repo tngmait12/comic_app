@@ -28,6 +28,7 @@ class PageResetPassword extends StatelessWidget {
                     duration: Duration(seconds: 3),
                   ),
                 );
+                Get.find<AuthController>().logout();
                 Get.offAll(() => PageLoginUser());
               },
               onError: (error) {

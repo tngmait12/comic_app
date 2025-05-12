@@ -1,4 +1,5 @@
 import 'package:comic_app/features/comic/pages/page_history_comic.dart';
+import 'package:comic_app/features/comic/pages/page_info_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -105,7 +106,7 @@ class PageSettingComic extends StatelessWidget {
         SizedBox(height: 15,),
         TextButton.icon(
           onPressed: () {
-
+            Get.to(() => PageInfoUser());
           },
           icon: Icon(Icons.person, size: 24, color: Colors.blue,),
           label: Text("Thông tin tài khoản", style: TextStyle(fontSize: 24, color: Colors.white),),

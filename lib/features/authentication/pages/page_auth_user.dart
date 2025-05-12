@@ -42,7 +42,7 @@ class PageLoginUser extends StatelessWidget {
             SupaEmailAuth(
               onSignInComplete: (res) {
                 authController.updateResponse(res);
-                Get.to(PageHomeComic());
+                Get.back();
                 Get.snackbar(
                   "Đăng nhập thành công!",
                   "Chúc bạn trải nghiệm vui vẻ",

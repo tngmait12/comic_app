@@ -1,4 +1,4 @@
-import 'package:comic_app/features/comic/models/user.dart';
+import 'package:comic_app/features/comic/models/profile_user.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -39,7 +39,6 @@ class _PageInfoUserState extends State<PageInfoUser> {
               SizedBox(height: 30,),
               _buildTextField('Tên', txtTen),
               SizedBox(height: 16,),
-              _buildTextField('Email', txtEmail),
               SizedBox(height: 16,),
               _buildTextField('Địa chỉ', txtDiaChi),
               SizedBox(height: 16,),
@@ -112,17 +111,16 @@ class _PageInfoUserState extends State<PageInfoUser> {
                         duration: Duration(seconds: 5),
                       )
                   );
-                  UserComic newUser = UserComic(
-                      id: userId.toString(),
+                  Profile profile = Profile(
                       createdAt: created,
                       ten: txtTen.text,
-                      email: txtEmail.text,
                       diaChi: txtDiaChi.text,
                       sdt: txtSdt.text,
                       gioiTinh: gioiTinh ?? "Nam",
-                      capBac: capBac ?? "Bình thường"
+                      capBac: capBac ?? "Bình thường",
+                      user_id: userId.toString()
                   );
-                  await UserSnapshot.insert(newUser);
+                  await ProfileSnapshot.upsertProfile(profile);
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

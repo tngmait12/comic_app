@@ -29,7 +29,7 @@ class PageResetPassword extends StatelessWidget {
                   ),
                 );
                 Get.find<AuthController>().logout();
-                Get.offAll(() => PageLoginUser());
+                Get.off(() => PageLoginUser());
               },
               onError: (error) {
                 ScaffoldMessenger.of(context).clearSnackBars();

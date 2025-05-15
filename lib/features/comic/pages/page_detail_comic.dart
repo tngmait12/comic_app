@@ -136,9 +136,9 @@ class PageDetailComic extends StatelessWidget {
                                           vertical: 8.0
                                       ),
                                       child: Text(
-                                        (controller.chapterInHistory.value == null)
-                                            ? "Đọc ngay"
-                                            : "Đọc tiếp",
+                                        chapterInHistory.isNotEmpty
+                                            ? "Đọc tiếp"
+                                            : "Đọc ngay",
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: Colors.deepPurple,

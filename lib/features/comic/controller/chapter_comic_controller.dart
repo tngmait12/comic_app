@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class ChapterComicController extends GetxController {
   RxBool isOpen = false.obs;
+  f
   final Rx<ChapterItem> curChapter;
   final List<ChapterItem> listChapter;
   Rxn<ChapterItem> preChapter = Rxn<ChapterItem>();

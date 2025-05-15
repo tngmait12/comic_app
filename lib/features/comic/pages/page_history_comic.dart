@@ -47,12 +47,14 @@ class PageHistoryComic extends StatelessWidget {
             builder: (context, snapshot) {
               List<ComicItem> comics = snapshot.data;
 
-              return GridLayout(
-                itemCount: comics.length,
-                itemBuilder: (context, index) {
-                  final comic = comics[index];
-                  return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
-                },
+              return SingleChildScrollView(
+                child: GridLayout(
+                  itemCount: comics.length,
+                  itemBuilder: (context, index) {
+                    final comic = comics[index];
+                    return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                  },
+                ),
               );
             },
           );

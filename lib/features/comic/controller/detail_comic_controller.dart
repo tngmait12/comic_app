@@ -8,8 +8,6 @@ class DetailComicController extends GetxController {
   RxBool isOverflowing = true.obs;
   final Rxn<ChapterItem> chapterInHistory = Rxn<ChapterItem>();
 
-
-
   void seeMore() {
     if (isExpand.value) {
       isExpand.value = false;

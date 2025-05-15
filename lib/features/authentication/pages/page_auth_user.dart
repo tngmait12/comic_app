@@ -7,11 +7,26 @@ import '../../../my_widget/snack_bar.dart';
 import '../../../navigation_menu.dart';
 import 'package:get/get.dart';
 
+import '../../comic/pages/page_home_comic.dart';
 
 AuthResponse? response;
+class AuthController extends GetxController {
+  Rx<AuthResponse?> response = Rx<AuthResponse?>(null);
+
+  void updateResponse(AuthResponse newResponse) {
+    response.value = newResponse;
+  }
+
+  void logout() {
+    response.value = null;
+    final controller = Get.find<NavigationController>();
+    controller.selectedIndex.value = 3;
+  }
+}
 
 class PageLoginUser extends StatelessWidget {
-  const PageLoginUser({super.key});
+  PageLoginUser({super.key});
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +42,28 @@ class PageLoginUser extends StatelessWidget {
             // Create a Email sign-in/sign-up form
             SupaEmailAuth(
               onSignInComplete: (res) {
-                response = res;
-                Navigator.of(context).pop();
+                authController.updateResponse(res);
+                Get.back();
+                Get.snackbar(
+                  "Đăng nhập thành công!",
+                  "Chúc bạn trải nghiệm vui vẻ",
+                  snackPosition: SnackPosition.TOP,
+                  backgroundColor: Colors.green,
+                  colorText: Colors.white,
+                  duration: Duration(seconds: 2),
+                );
               },
               onSignUpComplete: (response) {
                 if(response.user!=null){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => PageVerifyOTP(email: response.user!.email!),));
+                  Get.to(() => PageVerifyOTP(email: response.user!.email!));
                 }
               },
 
               showConfirmPasswordField: true,
+
+              metadataFields: [
+
+              ],
 
             ),
             Expanded(child: Container()),

@@ -42,15 +42,6 @@ class PageBookmarkComic extends StatelessWidget {
       appBar: AppBar(
         title: Text("Bookmark",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
-        actions: [
-          IconButton(
-              onPressed: () async{
-                await supabase.auth.signOut();
-                bookmarkController.clearData();
-              },
-              icon: Icon(Icons.logout, color: WHITE,)
-          )
-        ],
       ),
       body: isLoggedIn
       ? Obx(() {

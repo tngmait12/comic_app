@@ -136,8 +136,6 @@ class PageSettingComic extends StatelessWidget {
               colorText: Colors.white,
               duration: Duration(seconds: 2),
             );
-            final controller = Get.find<NavigationController>();
-            controller.selectedIndex.value = 3;
           },
           icon: Icon(Icons.logout, size: 24, color: Colors.blue,),
           label: Text("Đăng xuất", style: TextStyle(fontSize: 24, color: Colors.white),),

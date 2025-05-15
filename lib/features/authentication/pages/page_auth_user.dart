@@ -19,7 +19,8 @@ class AuthController extends GetxController {
 
   void logout() {
     response.value = null;
-    Get.offAll(() => PageSettingComic());
+    final controller = Get.find<NavigationController>();
+    controller.selectedIndex.value = 3;
   }
 }
 

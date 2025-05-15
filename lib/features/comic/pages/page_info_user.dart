@@ -1,6 +1,9 @@
 import 'package:comic_app/features/comic/models/profile_user.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../constants.dart';
 
 class PageInfoUser extends StatefulWidget {
   const PageInfoUser({super.key});
@@ -24,6 +27,16 @@ class _PageInfoUserState extends State<PageInfoUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.navigate_before_outlined,
+              color: Colors.white,
+              size: SIZE_ICO,
+            )
+        ),
         title: Text("Thông tin người dùng", style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),

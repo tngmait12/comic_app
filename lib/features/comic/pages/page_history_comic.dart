@@ -2,24 +2,27 @@ import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:comic_app/my_widget/async_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constants.dart';
 import '../../../my_widget/grid_layout.dart';
 import '../../../my_widget/rounded_comic_item.dart';
 import '../controller/bookmark_controller.dart';
 import '../fetch_api/fetch_comic_by_slug.dart';
+import '../fetch_api/fetch_detail_comic.dart';
 import '../models/comic_item.dart';
+import '../models/detail_comic.dart';
 
 class PageHistoryComic extends StatelessWidget {
   PageHistoryComic({super.key});
 
   final bookmarkController = Get.find<BookmarkController>();
 
-  Future<List<ComicItem>> fetchComics(List<Map<String, dynamic>> dataList) async {
-    final List<ComicItem> comics = [];
+  Future<List<DetailComic>> fetchComics(List<Map<String, dynamic>> dataList) async {
+    final List<DetailComic> comics = [];
 
     for (var entry in dataList) {
       final slug = entry['slug'];
       try {
-        final comic = await fetchComicBySlug(slug);
+        final comic = await fetchDetailComic(slug: slug);
         comics.add(comic);
       } catch (e) {
         print("Lỗi khi fetch $slug: $e");
@@ -34,6 +37,16 @@ class PageHistoryComic extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.navigate_before_outlined,
+              color: Colors.white,
+              size: SIZE_ICO,
+            )
+        ),
         title: Text("Lịch sử đọc truyện",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
@@ -43,7 +56,7 @@ class PageHistoryComic extends StatelessWidget {
           return AsyncWidget(
             snapshot: snapshot,
             builder: (context, snapshot) {
-              List<ComicItem> comics = snapshot.data;
+              List<DetailComic> comics = snapshot.data;
 
               return SingleChildScrollView(
                 child: Padding(
@@ -52,7 +65,7 @@ class PageHistoryComic extends StatelessWidget {
                     itemCount: comics.length,
                     itemBuilder: (context, index) {
                       final comic = comics[index];
-                      return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                      return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.chapters.last.chapterName,imageUrl: comic.thumbUrl,);
                     },
                   ),
                 ),

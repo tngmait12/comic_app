@@ -10,8 +10,8 @@ import 'features/authentication/pages/page_auth_user.dart';
 void main() async{
   await Supabase.initialize(
 
-    url: 'https://cefzpxihvfhzulvhsmmy.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlZnpweGlodmZoenVsdmhzbW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2MjYyODMsImV4cCI6MjA2MjIwMjI4M30.qiv0QBQU5OlADTWsLWU32EYxfxqb71XdcWJYgYG4KxI',
+    url: 'https://saqyvwcaoakhagodmpve.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhcXl2d2Nhb2FraGFnb2RtcHZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzQ1OTYsImV4cCI6MjA2MjExMDU5Nn0.nWCU1Td8jPXTkz0fbqnsOMiJnwZ4nDHDPOQ82n5YT4g',
 
   );
   Get.put(AuthController());

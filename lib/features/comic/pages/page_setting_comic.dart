@@ -3,7 +3,6 @@ import 'package:comic_app/features/comic/pages/page_info_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../navigation_menu.dart';
 import '../../authentication/pages/page_auth_reset_password.dart';
 import '../../authentication/pages/page_auth_user.dart';
 
@@ -38,8 +37,8 @@ class PageSettingComic extends StatelessWidget {
             children: [
               /// Avatar
               CircleAvatar(
-                radius: 35,
-                backgroundImage: AssetImage(''),
+                radius: 40,
+                backgroundImage: NetworkImage('https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg'),
               ),
               const SizedBox(width: 20),
               Column(
@@ -80,8 +79,8 @@ class PageSettingComic extends StatelessWidget {
             children: [
               /// Avatar
               CircleAvatar(
-                radius: 35,
-                backgroundImage: AssetImage(''),
+                radius: 40,
+                backgroundImage: NetworkImage('https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg'),
               ),
               const SizedBox(width: 20),
               Column(

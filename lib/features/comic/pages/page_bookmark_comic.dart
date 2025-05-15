@@ -42,6 +42,14 @@ class PageBookmarkComic extends StatelessWidget {
       appBar: AppBar(
         title: Text("Bookmark",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
+        actions: [
+          IconButton(
+              onPressed: () async{
+                await supabase.auth.signOut();
+              }, 
+              icon: Icon(Icons.signpost_outlined)
+          )
+        ],
       ),
       body: isLoggedIn
       ? Obx(() {
@@ -64,7 +72,7 @@ class PageBookmarkComic extends StatelessWidget {
                       itemCount: comics.length,
                       itemBuilder: (context, index) {
                         final comic = comics[index] as DetailComic;
-                        return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.chapters.last.chapterName,imageUrl: comic.thumbUrl,);
+                        return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.chapters.isNotEmpty ? comic.chapters.last.chapterName : "Chapter Next Will Be Update",imageUrl: comic.thumbUrl,);
                       },
                     ),
                   ),

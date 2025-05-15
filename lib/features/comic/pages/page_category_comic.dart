@@ -5,6 +5,8 @@ import 'package:comic_app/my_widget/rounded_comic_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants.dart';
+
 class PageCategoryComic extends StatelessWidget {
 
   final String category;
@@ -27,10 +29,14 @@ class PageCategoryComic extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Get.back(); // hoặc Navigator.pop(context)
-          },
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.navigate_before_outlined,
+              color: Colors.white,
+              size: SIZE_ICO,
+            )
         ),
         title: Text(category, style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.shadow,

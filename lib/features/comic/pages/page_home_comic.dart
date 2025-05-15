@@ -205,12 +205,15 @@ class PageHomeComic extends StatelessWidget {
 
                   List<ComicItem> comics = snapshot.data!;
 
-                  return GridLayout(
-                      itemCount: comics.length,
-                      itemBuilder: (context, index) {
-                        final comic = comics[index];
-                        return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
-                      },
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridLayout(
+                        itemCount: comics.length,
+                        itemBuilder: (context, index) {
+                          final comic = comics[index];
+                          return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                        },
+                    ),
                   );
                 },
             ),

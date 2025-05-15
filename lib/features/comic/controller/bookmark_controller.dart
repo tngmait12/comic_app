@@ -13,6 +13,10 @@ class BookmarkController extends GetxController {
     fetchData();
   }
 
+  void clearData() {
+    _bookmarks.clear();
+    _history.clear();
+  }
   Future<void> fetchData() async {
     final user = supabase.auth.currentUser;
     if (user == null) return;
@@ -24,21 +28,14 @@ class BookmarkController extends GetxController {
         .order('created_at', ascending: false);
 
     if (response != null && response is List) {
-      _bookmarks.clear();
-      _history.clear();
+      clearData();
 
       for (var row in response) {
         final isBookmark = row['is_bookmark'] == true;
         final chapterName = row['chapter_name'];
 
-        if (isBookmark && chapterName == null) {
-          _bookmarks.add(row);
-        } else if (!isBookmark && chapterName != null) {
-          _history.add(row);
-        } else if (isBookmark && chapterName != null) {
-          _bookmarks.add(row);
-          _history.add(row);
-        }
+        if(isBookmark) _bookmarks.add(row);
+        if(chapterName != null) _history.add(row);
       }
     }
   }
@@ -130,7 +127,6 @@ class BookmarkController extends GetxController {
     return _bookmarks.any((item) => item['slug'] == slug);
   }
 }
-
 
 class BindingBookmark extends Bindings {
   @override

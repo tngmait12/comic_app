@@ -1,5 +1,3 @@
-import 'package:comic_app/features/authentication/pages/page_auth_user.dart';
-import 'package:comic_app/features/comic/models/detail_comic.dart';
 import 'package:comic_app/features/comic/pages/page_detail_comic.dart';
 import 'package:comic_app/my_widget/async_widget.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +34,7 @@ class PageHistoryComic extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lich su doc truyen",style: TextStyle(color: Colors.white)),
+        title: Text("Lịch sử đọc truyện",style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
       body: FutureBuilder(
@@ -47,12 +45,17 @@ class PageHistoryComic extends StatelessWidget {
             builder: (context, snapshot) {
               List<ComicItem> comics = snapshot.data;
 
-              return GridLayout(
-                itemCount: comics.length,
-                itemBuilder: (context, index) {
-                  final comic = comics[index];
-                  return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
-                },
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridLayout(
+                    itemCount: comics.length,
+                    itemBuilder: (context, index) {
+                      final comic = comics[index];
+                      return RoundedComicItem(onTap: () => Get.to(PageDetailComic(slug: comic.slug,)),name: comic.name,latestChapter: comic.latestChapter!,imageUrl: comic.thumbUrl,);
+                    },
+                  ),
+                ),
               );
             },
           );

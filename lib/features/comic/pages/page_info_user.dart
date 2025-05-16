@@ -97,12 +97,12 @@ class _PageInfoUserState extends State<PageInfoUser> {
                 value: capBac, //Giá trị thay đổi, khi value bằng với value của menu item thì item đó sẽ được chọn
                 items: capBacOptions.map(
                       (e) => DropdownMenuItem<String>(
+                    value: e,
                     child: Row(
                       children: [
                         Text(e, style: TextStyle(color: Colors.blue),),
                       ],
-                    ),
-                    value: e, //Cố định
+                    ), //Cố định
                   ),
                 ).toList(),
                 onChanged: (value) { //value của dropdownMenuItem được chọn

@@ -5,6 +5,8 @@ import 'package:comic_app/my_widget/async_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants.dart';
+
 class PageListCategory extends StatelessWidget {
   const PageListCategory({super.key});
 
@@ -14,12 +16,16 @@ class PageListCategory extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Get.back();
-          },
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.navigate_before_outlined,
+              color: Colors.white,
+              size: SIZE_ICO,
+            )
         ),
-        title: Text("Danh sach the loai", style: TextStyle(color: Colors.white),),
+        title: Text("Danh sách thể loại", style: TextStyle(color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.shadow,
       ),
       body: FutureBuilder(

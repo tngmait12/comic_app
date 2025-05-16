@@ -18,7 +18,7 @@ class PageSearchComic extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
             icon: Icon(
               Icons.navigate_before_outlined,

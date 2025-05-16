@@ -49,7 +49,7 @@ class NavigationMenu extends StatelessWidget {
                   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
                   destinations: const [
                     NavigationDestination(icon: Icon(Icons.home, color: Colors.white,), label: 'Trang chủ'),
-                    NavigationDestination(icon: Icon(Icons.bookmark_add_outlined, color: Colors.white), label: 'Mới cập nhật'),
+                    NavigationDestination(icon: Icon(Icons.update, color: Colors.white), label: 'Mới cập nhật'),
                     NavigationDestination(icon: Icon(Icons.bookmark, color: Colors.white), label: 'Bookmark'),
                     NavigationDestination(
                         icon: Icon(Icons.account_circle, color: Colors.white),

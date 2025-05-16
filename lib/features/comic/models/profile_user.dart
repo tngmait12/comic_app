@@ -59,4 +59,18 @@ class ProfileSnapshot {
         .from('Profile')
         .upsert(newUser.toMap(), onConflict: 'user_id').select();
   }
+
+  static Future<Profile?> getProfileByUserId(String userId) async {
+    final supabase = Supabase.instance.client;
+    final data = await supabase
+        .from('Profile')
+        .select()
+        .eq('user_id', userId)
+        .single();
+
+    if (data != null) {
+      return Profile.fromMap(data);
+    }
+    return null;
+  }
 }

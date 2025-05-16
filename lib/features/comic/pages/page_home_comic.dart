@@ -10,6 +10,10 @@ import 'package:comic_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:comic_app/my_widget/grid_layout.dart';
 import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../authentication/pages/page_auth_user.dart';
+import '../models/profile_user.dart';
 class PageHomeComic extends StatelessWidget {
    const PageHomeComic({super.key});
 
@@ -17,26 +21,17 @@ class PageHomeComic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: CircleAvatar(
-          radius: 40,
-          backgroundImage: NetworkImage('https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg'),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Hello,", style: TextStyle(color: Colors.white),),
-            Text("Tong Mai Truong Vu",style: TextStyle(color: Colors.white)),
-          ],
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.to(PageSearchComic());
-            },
-            icon: Icon(Icons.search, color: Colors.white))
-        ],
-        backgroundColor: Theme.of(context).colorScheme.shadow,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: Obx(() {
+          final auth = Get.find<AuthController>();
+          final isLoggedIn = auth.response.value?.session != null &&
+              auth.response.value?.user != null;
+
+          return isLoggedIn
+              ? PageHomeLogined(context)
+              : PageHomeNonLogin(context);
+        }),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -220,4 +215,72 @@ class PageHomeComic extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.shadow,
     );
   }
+
+  PreferredSizeWidget  PageHomeLogined(BuildContext context) {
+   final supabase = Supabase.instance.client;
+   final user = supabase.auth.currentUser;
+   final email = user?.email ?? "Không rõ email";
+   final userId = user?.id;
+
+   return PreferredSize(
+     preferredSize: const Size.fromHeight(kToolbarHeight),
+     child: FutureBuilder<Profile?>(
+       future: ProfileSnapshot.getProfileByUserId(userId ?? ""),
+       builder: (context, snapshot) {
+         final profile = snapshot.data;
+         final displayName = (profile?.ten != null && profile!.ten.isNotEmpty)
+             ? profile.ten
+             : email;
+
+         return AppBar(
+           leading: const CircleAvatar(
+             radius: 40,
+             backgroundImage: NetworkImage(
+               'https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg',
+             ),
+           ),
+           title: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               const Text("Hello,", style: TextStyle(color: Colors.white)),
+               Text(displayName, style: const TextStyle(color: Colors.white)),
+             ],
+           ),
+           actions: [
+             IconButton(
+               onPressed: () {
+                 Get.to(PageSearchComic());
+               },
+               icon: const Icon(Icons.search, color: Colors.white),
+             )
+           ],
+           backgroundColor: Theme.of(context).colorScheme.shadow,
+         );
+       },
+     ),
+   );
+  }
+
+   PreferredSizeWidget PageHomeNonLogin(BuildContext context) {
+   return AppBar(
+     leading: CircleAvatar(
+       radius: 40,
+       backgroundImage: NetworkImage('https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg'),
+     ),
+     title: Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         Text("Chưa đăng nhập", style: TextStyle(color: Colors.white),),
+       ],
+     ),
+     actions: [
+       IconButton(
+           onPressed: () {
+             Get.to(PageSearchComic());
+           },
+           icon: Icon(Icons.search, color: Colors.white))
+     ],
+     backgroundColor: Theme.of(context).colorScheme.shadow,
+   );
+ }
 }

@@ -148,16 +148,16 @@ class _PageInfoUserState extends State<PageInfoUser> {
   Widget _buildTextField(String label, TextEditingController controller) {
     return TextField(
       controller: controller,
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.white70),
+        labelStyle: TextStyle(color: Colors.white70),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white24),
+          borderSide: BorderSide(color: Colors.white24),
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.cyan),
+          borderSide: BorderSide(color: Colors.cyan),
           borderRadius: BorderRadius.circular(12),
         ),
       ),
